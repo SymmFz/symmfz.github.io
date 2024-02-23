@@ -2,11 +2,11 @@ title: SymmFz's Home
 author: SymmFz
 email: your-email@domain.com
 description: > # this means to ignore newlines until "twitter_username:"
-  SymmFz's Home
+  Welcome to SymmFz's Home
 
 # social links
 # twitter_username: jekyllrb
-github_username:  SymmFz
+github_username: SymmFz
 # rss: rss
 # dribbble_username: jekyll
 # facebook_username: jekyll
@@ -25,7 +25,7 @@ github_username:  SymmFz
 #   instance: example.com
 
 
-show_excerpts: true # set to true to show excerpts on the homepage
+show_excerpts: false # set to true to show excerpts on the homepage
 
 # Minima date format
 # refer to http://shopify.github.io/liquid/filters/date/ if you want to customize this

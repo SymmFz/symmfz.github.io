@@ -7,4 +7,4 @@ meta: "Springfield"
 ---
 # Welcome
 
-This my first article in my website.♥️
+This is my first article in my website.♥️
