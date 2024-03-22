@@ -1,1 +1,45 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on SymmFz's HomePage</title><link>https://symmfz.github.io/posts/</link><description>Recent content in Posts on SymmFz's HomePage</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><copyright>Copyright © 2024-2024 SymmFz. All Rights Reserved.</copyright><lastBuildDate>Fri, 22 Mar 2024 21:04:01 +0800</lastBuildDate><atom:link href="https://symmfz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>动态规划</title><link>https://symmfz.github.io/posts/dynamic/</link><pubDate>Fri, 22 Mar 2024 21:04:01 +0800</pubDate><guid>https://symmfz.github.io/posts/dynamic/</guid><description>&lt;p>W.I.P 动态规划学习笔记.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Posts on SymmFz's HomePage</title><link>https://symmfz.github.io/posts/</link><description>Recent content in Posts on SymmFz's HomePage</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><copyright>Copyright © 2024-2024 SymmFz. All Rights Reserved.</copyright><lastBuildDate>Fri, 22 Mar 2024 21:04:01 +0800</lastBuildDate><atom:link href="https://symmfz.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>动态规划</title><link>https://symmfz.github.io/posts/dynamic/</link><pubDate>Fri, 22 Mar 2024 21:04:01 +0800</pubDate><guid>https://symmfz.github.io/posts/dynamic/</guid><description>&lt;p>W.I.P 动态规划学习笔记.&lt;/p></description><content:encoded><![CDATA[<p>W.I.P 动态规划学习笔记.</p>
+<h2 id="动态规划的演进" data-numberify>动态规划的演进<a class="anchor ms-1" href="#动态规划的演进"></a></h2>
+<p>Dfs -&gt; 记忆化搜索 -&gt; 动态规划 (倒序递推/逆序递推  -&gt;  空间优化)</p>
+<blockquote>
+<p>实现记忆化搜索，dfs 函数的参数应当尽量少，不影响边界的参数不要添加。
+想要剪枝，一般多用参数</p>
+</blockquote>
+
+<h3 id="动态规划" data-numberify>动态规划<a class="anchor ms-1" href="#动态规划"></a></h3>
+<blockquote>
+<p>什么是动态规划
+<strong>动态规划（英语：Dynamic programming，简称 DP）</strong>，是一种在数学、管理科学、计算机科学、经济学和生物信息学中使用的，通过把原问题分解为相对简单的子问题的方式求解复杂问题的方法。
+<em>动态规划常常适用于有重叠子问题和最优子结构性质的问题。</em></p>
+<p><strong>动态规划的核心思想：</strong>
+动态规划最核心的思想，就在于<strong>拆分子问题，记住过往，减少重复计算</strong>。</p>
+</blockquote>
+<p>示例：
+下题</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// P1359 租用游艇 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// https://www.luogu.com.cn/problem/P1359 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define int long long
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="kt">int</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">1000200</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">timee</span><span class="p">[</span><span class="mi">210</span><span class="p">][</span><span class="mi">210</span><span class="p">];</span>    <span class="c1">// 直接从 i 到 j 的时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">mintime</span><span class="p">[</span><span class="mi">210</span><span class="p">][</span><span class="mi">210</span><span class="p">];</span>  <span class="c1">// 子问题分解，记录从 i 到 j 的最短时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">signed</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">timee</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>  <span class="c1">// input part
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 递推，从 1 到 i 的最短时间 -&gt; 从 1 到 n 的最短时间
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>  <span class="c1">// 最后一步
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>  <span class="n">mintime</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">timee</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>  <span class="c1">//！注意
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">else</span> <span class="n">mintime</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">mintime</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">timee</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">mintime</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mintime</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>]]></content:encoded></item></channel></rss>
