@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>双指针 on SymmFz's Blog</title><link>https://symmfz.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/</link><description>Recent content in 双指针 on SymmFz's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-hans</language><copyright>Copyright © 2024-2024 SymmFz. All Rights Reserved.</copyright><lastBuildDate>Sat, 23 Mar 2024 11:10:00 +0800</lastBuildDate><atom:link href="https://symmfz.github.io/tags/%E5%8F%8C%E6%8C%87%E9%92%88/index.xml" rel="self" type="application/rss+xml"/><item><title>双指针、前缀和、差分算法</title><link>https://symmfz.github.io/blog/2024/03/%E5%8F%8C%E6%8C%87%E9%92%88%E5%89%8D%E7%BC%80%E5%92%8C%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95/</link><pubDate>Sat, 23 Mar 2024 11:10:00 +0800</pubDate><guid>https://symmfz.github.io/blog/2024/03/%E5%8F%8C%E6%8C%87%E9%92%88%E5%89%8D%E7%BC%80%E5%92%8C%E5%B7%AE%E5%88%86%E7%AE%97%E6%B3%95/</guid><description>&lt;p>双指针、前缀和、差分算法.&lt;/p></description><content:encoded><![CDATA[<p>双指针、前缀和、差分算法.</p>
+<h2 id="双指针" data-numberify>双指针<a class="anchor ms-1" href="#双指针"></a></h2>
+
+<h3 id="解释" data-numberify>解释<a class="anchor ms-1" href="#解释"></a></h3>
+<ul>
+<li>快慢指针</li>
+<li>左右指针</li>
+</ul>
+<p>双指针是一种思想，一种技巧或一种方法，并不是什么特别具体的算法，在<strong>二分查找</strong>等算法中经常用到这个技巧。具体就是用两个变量动态存储两个或多个结点，来方便我们进行一些操作。通常用在<strong>线性的数据结构</strong>中，比如<strong>链表和数组</strong>，有时候也会用在图算法中。</p>
+<p>在我们遇到像数组，链表这类数据结构的算法题目的时候，应该要想得到双指针的套路来解决问题。<strong>特别是链表类的题目</strong>，经常需要用到两个或多个指针配合来记忆链表上的节点，完成某些操作。链表这种数据结构也是树形结构和图的原型，所以有时候在关于图和树形结构的算法题目中也会用到双指针。</p>
+<p>当你遇到此类数据结构，尝试使用双指针来解题的时候，可以从以下几个双指针类题目的套路入手进行思考</p>
+
+<h4 id="快慢指针" data-numberify>快慢指针<a class="anchor ms-1" href="#快慢指针"></a></h4>
+<p>类似于龟兔赛跑，两个链表上的指针从同一节点出发，其中一个指针前进速度是另一个指针的两倍。利用快慢指针可以用来解决某些算法问题，比如：</p>
+<ol>
+<li>计算链表的中点：快慢指针从头节点出发，每轮迭代中，快指针向前移动两个节点，慢指针向前移动一个节点，最终当快指针到达终点的时候，慢指针刚好在中间的节点。</li>
+<li>判断链表是否有环：如果链表中存在环，则在链表上不断前进的指针会一直在环里绕圈子，且不能知道链表是否有环。使用快慢指针，当链表中存在环时，两个指针最终会在环中相遇。</li>
+<li>判断链表中环的起点：当我们判断出链表中存在环，并且知道了两个指针相遇的节点，我们可以让其中任一个指针指向头节点，然后让它俩以相同速度前进，再次相遇时所在的节点位置就是环开始的位置。</li>
+<li>求链表中环的长度：只要相遇后一个不动，另一个前进直到相遇算一下走了多少步就好了</li>
+<li>求链表倒数第 k 个元素：先让其中一个指针向前走 k 步，接着两个指针以同样的速度一起向前进，直到前面的指针走到尽头了，则后面的指针即为倒数第 k 个元素。（严格来说应该叫先后指针而非快慢指针）</li>
+</ol>
+
+<h4 id="碰撞指针" data-numberify>碰撞指针<a class="anchor ms-1" href="#碰撞指针"></a></h4>
+<p>一般都是<strong>排好序的数组或链表</strong>，否则无序的话这两个指针的位置也没有什么意义。特别注意两个指针的循环条件在循环体中的变化，小心右指针跑到左指针左边去了。常用来解决的问题有:</p>
+<ol>
+<li>二分查找问题</li>
+<li>n 数之和问题：比如两数之和问题，先对数组排序然后左右指针找到满足条件的两个数。如果是三数问题就转化为一个数和另外两个数的两数问题。以此类推。</li>
+</ol>
+
+<h4 id="滑动窗口法" data-numberify>滑动窗口法<a class="anchor ms-1" href="#滑动窗口法"></a></h4>
+<p>两个指针，一前一后组成滑动窗口，并计算滑动窗口中的元素的问题。这类问题一般包括：</p>
+<ol>
+<li>字符串匹配问题</li>
+<li>子数组问题</li>
+</ol>
+
+<h3 id="例题" data-numberify>例题<a class="anchor ms-1" href="#例题"></a></h3>
+
+<h2 id="前缀和" data-numberify>前缀和<a class="anchor ms-1" href="#前缀和"></a></h2>
+
+<h3 id="解释-1" data-numberify>解释<a class="anchor ms-1" href="#解释-1"></a></h3>
+
+<h4 id="什么是前缀和" data-numberify>什么是前缀和？<a class="anchor ms-1" href="#什么是前缀和"></a></h4>
+<p><strong>一维前缀和：</strong><br>
+有一个一维数组 $x$ 和该数组的一维前缀和数组 $y$ ，则 $x$ 和  $y$ 满足以下关系：<br>
+$$y_n = \sum_{i=1}^{n} x_n$$<br>
+<strong>二维前缀和</strong>：<br>
+![[Clip_2024-03-16_20-10-14.png]]</p>
+
+<h4 id="前缀和公式" data-numberify>前缀和公式<a class="anchor ms-1" href="#前缀和公式"></a></h4>
+
+<h5 id="一维前缀和" data-numberify>一维前缀和<a class="anchor ms-1" href="#一维前缀和"></a></h5>
+<p>公式： $y_n = y_{n-1} + x_n$<br>
+代码如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="k">else</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h5 id="二维前缀和" data-numberify>二维前缀和<a class="anchor ms-1" href="#二维前缀和"></a></h5>
+<p>公式：<br>
+$$b_{x,y} = b_{x-1,y} + b_{x,y-1} - b_{x-1, y-1} + a_{x,y}$$<br>
+代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">x</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">x</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">y</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">y</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">		<span class="k">else</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">b</span><span class="p">[</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><blockquote>
+<p>[!note] 前缀和有什么用？<br>
+<em>前缀和是一种预处理，用于降低查询时的时间复杂度。</em><br>
+举个例子：给定 n 个整数，然后进行 m 次询问，每次询问求一个区间内值的和。<br>
+如果用暴力写法，那每次询问都需要从区间左端点循环到区间右端点求和，时间复杂度较大。<br>
+这种时候就可以预先求出该数组的一维前缀和。</p>
+</blockquote>
+
+<h3 id="例题-1" data-numberify>例题<a class="anchor ms-1" href="#例题-1"></a></h3>
+<p><a href="https://www.luogu.com.cn/problem/P3131" target="_blank" rel="noopener noreferrer">P3131 [USACO16JAN] Subsequences Summing to Sevens S<i class="fas fa-external-link-square-alt ms-1"></i></a></p>
+
+<h2 id="差分" data-numberify>差分<a class="anchor ms-1" href="#差分"></a></h2>
+
+<h3 id="解释-2" data-numberify>解释<a class="anchor ms-1" href="#解释-2"></a></h3>
+<p><strong>差分是前缀和的逆运算</strong>。若有前缀和数组 $A_n$，差分数组 $B_n$，则有：<br>
+$$A_i = \sum_{i=1}^{n} B_i$$</p>
+<blockquote>
+<p>[!tip] 差分数组与前缀和数组的关系
+差分数组与前缀和数组是一一对应的，换句话说，已知其一可确定另一数组.</p>
+</blockquote>
+
+<h4 id="例子" data-numberify>例子：<a class="anchor ms-1" href="#例子"></a></h4>
+<p>已知某前缀和数组 $A_n$ ，现需要对该前缀和数组的 $[l, r]$ 索引处的值增加 $a$ .<br>
+解决方法：<em>暴力复杂度 O(n) -&gt; O (1)</em></p>
+<ol>
+<li>求解差分数组 $B_n$（差分数组 $A_i = \sum_{i=1}^{n} B_i$ ）</li>
+<li>增加： $B_l = B_l + a$</li>
+<li>消除 $r$ 后的影响：$B_{r+1} = B_{r+1} - a$</li>
+</ol>
+<p>![[Clip_2024-03-16_21-44-34.png]]<br>
+![[Clip_2024-03-16_21-56-58.png]]</p>
+<blockquote>
+<p>[!NOTE] 对于二维差分？
+容易验证，二维差分数组的某一点 $(x, y)$ 所<strong>影响的范围为其右下角所有点（包括该点）</strong></p>
+<p>所以，画图易知，若要使二维前缀和数组 $A_n$ $(x_1, y_1)$ 到 $(x_2, y_2)$ 之间的所有点增加 $a$.
+可以使 $A_n$ 对应的二维差分数组 $S_n$ 作以下变换：
+$$S[x_1, y_1] += a, S[x_2 + 1, y_1] -= a, S[x_1, y_2 + 1] -= a, S[x_2 + 1, y_2 + 1] += a$$
+![[Clip_2024-03-17_11-19-39 1.png]]</p>
+</blockquote>
+
+<h4 id="例题-2" data-numberify>例题<a class="anchor ms-1" href="#例题-2"></a></h4>
+
+<h5 id="一维差分" data-numberify>一维差分<a class="anchor ms-1" href="#一维差分"></a></h5>
+<p><strong>1.  <a href="https://www.luogu.com.cn/problem/P3397" target="_blank" rel="noopener noreferrer">P 3397 地毯<i class="fas fa-external-link-square-alt ms-1"></i></a></strong></p>
+<blockquote>
+<p>[!INFO] 题意
+在 n×n 的格子上有 m 个地毯。
+给出这些地毯的信息，问每个点被多少个地毯覆盖。</p>
+</blockquote>
+<p>此题看似为二维，其实可以用一维差分解决，见代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="o">+</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="o">+</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="o">+</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="o">+</span><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// P3397 地毯
+</span></span></span><span class="line"><span class="cl"><span class="c1">// https://www.luogu.com.cn/problem/P3397
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;bits/stdc++.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define int long long
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">ori</span><span class="p">[</span><span class="mi">1010</span><span class="p">][</span><span class="mi">1010</span><span class="p">];</span>   <span class="c1">// 地毯数量（前缀和）
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="n">diff</span><span class="p">[</span><span class="mi">1010</span><span class="p">][</span><span class="mi">1010</span><span class="p">];</span>  <span class="c1">// 差分数组
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">signed</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">n</span> <span class="o">&gt;&gt;</span> <span class="n">m</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="kt">int</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">x1</span> <span class="o">&gt;&gt;</span> <span class="n">y1</span> <span class="o">&gt;&gt;</span> <span class="n">x2</span> <span class="o">&gt;&gt;</span> <span class="n">y2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">x1</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">x2</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="n">diff</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">y1</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">x1</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;=</span><span class="n">x2</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="n">diff</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">y2</span><span class="p">]</span> <span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>  <span class="n">ori</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="k">else</span> <span class="n">ori</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">ori</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">diff</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ori</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>]]></content:encoded></item></channel></rss>
